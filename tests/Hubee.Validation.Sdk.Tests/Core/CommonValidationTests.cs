@@ -24,7 +24,7 @@ namespace Hubee.Validation.Sdk.Tests.Core
         [Fact]
         public void TestRequiredWithValidObject()
         {
-            var entity = new EntityCommonTest() { Name = "João", CreatedDate = DateTime.Now, Stock = 0, Value = 0 };
+            var entity = new EntityCommonTest() { Name = "João", CreatedDate = DateTime.Now, Stock = 0, Value = 2 };
 
             var result = entity.ValidadeSchema();
 

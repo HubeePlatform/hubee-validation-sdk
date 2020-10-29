@@ -1,4 +1,5 @@
 ﻿using Hubee.Validation.Sdk.Core.Exceptions;
+using Hubee.Validation.Sdk.Core.Helpers;
 using Hubee.Validation.Sdk.Core.Interfaces;
 using Hubee.Validation.Sdk.Core.Models;
 using Hubee.Validation.Sdk.Core.Models.Validations;
@@ -57,10 +58,10 @@ namespace Hubee.Validation.Sdk.Core.Factories
 
         private static Error CreateValidationForMax(PropertyInfo property, object propertyValue, string rule)
         {
-            switch (property.PropertyType.Name)
+            switch (ValidationHelper.ExtractPropertyTypeName(property))
             {
                 case nameof(String):
-                    return TextValidations.HasMaxLen(property, propertyValue, rule);
+                    return TextValidations.HasMax(property, propertyValue, rule);
                 default:
                     throw new PropertyTypeNotSupportedForRuleException(property.Name, property.PropertyType.Name, rule);
             }
@@ -68,11 +69,10 @@ namespace Hubee.Validation.Sdk.Core.Factories
 
         private static Error CreateValidationForMin(PropertyInfo property, object propertyValue, string rule)
         {
-            switch (property.PropertyType.Name)
+            switch (ValidationHelper.ExtractPropertyTypeName(property))
             {
                 case nameof(String):
-                    return TextValidations.HasMinLen(property, propertyValue, rule);
-
+                    return TextValidations.HasMin(property, propertyValue, rule);
                 default:
                     throw new PropertyTypeNotSupportedForRuleException(property.Name, property.PropertyType.Name, rule);
             }

@@ -10,28 +10,28 @@ namespace Hubee.Validation.Sdk.Core.Models.Validations
 {
     internal static class TextValidations
     {
-        public static Error HasMinLen(PropertyInfo property, object value, string rule, string errorCode = null)
+        public static Error HasMin(PropertyInfo property, object value, string rule, string errorCode = null)
         {
             if (ValidationHelper.IsValueNullOrEmpty(value))
                 return null;
 
-            var expected = ValidationHelper.ExtractColonRuleIntegerValue(rule);
+            var expected = ValidationHelper.ExtractColonRuleNumericValue(rule);
 
             if (value.ToString().Length < expected)
-                return Error.Make($"Property {property.Name} must have {expected} min length", property.Name);
+                return Error.Make($"Property '{property.Name}' must have min length {expected} ", property.Name);
 
             return null;
         }
 
-        public static Error HasMaxLen(PropertyInfo property, object value, string rule, string errorCode = null)
+        public static Error HasMax(PropertyInfo property, object value, string rule, string errorCode = null)
         {
             if (ValidationHelper.IsValueNullOrEmpty(value))
                 return null;
  
-            var expected = ValidationHelper.ExtractColonRuleIntegerValue(rule);
+            var expected = ValidationHelper.ExtractColonRuleNumericValue(rule);
 
             if (value.ToString().Length > expected)
-                return Error.Make($"Property {property.Name} must have {expected} max length", property.Name);
+                return Error.Make($"Property '{property.Name}' must have max length {expected}", property.Name);
 
             return null;
         }
