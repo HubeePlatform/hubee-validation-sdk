@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
+﻿using System.Reflection;
 
 namespace Hubee.Validation.Sdk.Core.Models.Validations
 {
-    internal static class CommonValidation
+    internal static class CommonValidations
     {
         public static Error IsRequired(PropertyInfo property, object value, string errorCode = null)
         {

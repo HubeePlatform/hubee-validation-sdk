@@ -2,9 +2,6 @@
 using Hubee.Validation.Sdk.Core.Extensions;
 using Hubee.Validation.Sdk.Tests.EntitiesTest;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using Xunit;
 
 namespace Hubee.Validation.Sdk.Tests.Core

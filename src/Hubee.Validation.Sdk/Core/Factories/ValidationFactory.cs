@@ -2,12 +2,12 @@
 using Hubee.Validation.Sdk.Core.Helpers;
 using Hubee.Validation.Sdk.Core.Interfaces;
 using Hubee.Validation.Sdk.Core.Models;
+using Hubee.Validation.Sdk.Core.Models.Constants;
 using Hubee.Validation.Sdk.Core.Models.Validations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Hubee.Validation.Sdk.Core.Factories
@@ -31,26 +31,21 @@ namespace Hubee.Validation.Sdk.Core.Factories
 
             foreach (var rule in rules)
             {
-                if (rule.Equals("required"))
+                switch (rule)
                 {
-                    tasks.Add(new Task(() => result.Add(CommonValidation.IsRequired(property, propertyValue))));
-                    continue;
+                    case RuleName.REQUIRED:
+                        tasks.Add(new Task(() => result.Add(CommonValidations.IsRequired(property, propertyValue))));
+                        break;
+                    case string r when r.Contains(RuleName.MIN):
+                        tasks.Add(new Task(() => result.Add(CreateValidationForMin(property, propertyValue, rule))));
+                        break;
+                    case string r when r.Contains(RuleName.MAX):
+                        tasks.Add(new Task(() => result.Add(CreateValidationForMax(property, propertyValue, rule))));
+                        break;
+                    default:
+                        throw new RuleNotSupportedException(rule);
+
                 }
-
-                if (rule.Contains("min"))
-                {
-                    tasks.Add(new Task(() => result.Add(CreateValidationForMin(property, propertyValue, rule))));
-                    continue;
-                }
-
-                if (rule.Contains("max"))
-                {
-                    tasks.Add(new Task(() => result.Add(CreateValidationForMax(property, propertyValue, rule))));
-                    continue;
-                }
-
-                throw new RuleNotSupportedException(rule);
-
             }
 
             return tasks;

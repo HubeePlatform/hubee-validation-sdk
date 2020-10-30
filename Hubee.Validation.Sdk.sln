@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hubee.Validation.Sdk", "src\Hubee.Validation.Sdk\Hubee.Validation.Sdk.csproj", "{957C3F73-2F83-4477-B37D-096B2903772B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hubee.Validation.Sdk.Tests", "tests\Hubee.Validation.Sdk.Tests\Hubee.Validation.Sdk.Tests.csproj", "{8FF79835-46D1-4DB2-A7F4-56934B537C42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hubee.Validation.Sdk.Tests", "tests\Hubee.Validation.Sdk.Tests\Hubee.Validation.Sdk.Tests.csproj", "{8FF79835-46D1-4DB2-A7F4-56934B537C42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

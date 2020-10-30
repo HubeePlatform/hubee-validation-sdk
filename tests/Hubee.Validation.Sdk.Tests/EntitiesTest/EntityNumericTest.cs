@@ -1,7 +1,4 @@
 ﻿using Hubee.Validation.Sdk.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Hubee.Validation.Sdk.Tests.EntitiesTest
 {

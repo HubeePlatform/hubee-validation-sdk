@@ -1,10 +1,6 @@
 ﻿using Hubee.Validation.Sdk.Core.Exceptions;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Hubee.Validation.Sdk.Core.Helpers
 {
@@ -32,7 +28,7 @@ namespace Hubee.Validation.Sdk.Core.Helpers
             var ruleSplitted = rule?.Split(':');
 
             if (ruleSplitted is null || ruleSplitted.Length < 2)
-                throw new RuleInvalidFormatException(rule);                
+                throw new RuleInvalidFormatException(rule);
 
             try
             {
@@ -42,7 +38,7 @@ namespace Hubee.Validation.Sdk.Core.Helpers
             {
                 throw new RuleInvalidFormatException(rule);
             }
-           
+
         }
     }
 }

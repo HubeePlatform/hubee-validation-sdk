@@ -1,8 +1,5 @@
 ﻿using Hubee.Validation.Sdk.Core.Helpers;
-using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace Hubee.Validation.Sdk.Core.Models.Validations
 {

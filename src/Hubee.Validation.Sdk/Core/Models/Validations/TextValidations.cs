@@ -1,10 +1,5 @@
-﻿using Hubee.Validation.Sdk.Core.Exceptions;
-using Hubee.Validation.Sdk.Core.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Hubee.Validation.Sdk.Core.Helpers;
 using System.Reflection;
-using System.Text;
 
 namespace Hubee.Validation.Sdk.Core.Models.Validations
 {
@@ -27,7 +22,7 @@ namespace Hubee.Validation.Sdk.Core.Models.Validations
         {
             if (ValidationHelper.IsValueNullOrEmpty(value))
                 return null;
- 
+
             var expected = ValidationHelper.ExtractColonRuleNumericValue(rule);
 
             if (value.ToString().Length > expected)

@@ -1,7 +1,5 @@
 ﻿using Hubee.Validation.Sdk.Core.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Hubee.Validation.Sdk.Tests.EntitiesTest
 {
@@ -23,7 +21,7 @@ namespace Hubee.Validation.Sdk.Tests.EntitiesTest
         }
     }
 
-    public class InvalidPropertyEntityTest: EntityCommonTest
+    public class InvalidPropertyEntityTest : EntityCommonTest
     {
         public override object GetSchemaRules()
         {
@@ -38,7 +36,7 @@ namespace Hubee.Validation.Sdk.Tests.EntitiesTest
         }
     }
 
-    public class InvalidRuleEntityTest: EntityCommonTest
+    public class InvalidRuleEntityTest : EntityCommonTest
     {
         public override object GetSchemaRules()
         {
