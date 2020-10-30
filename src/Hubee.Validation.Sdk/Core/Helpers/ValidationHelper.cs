@@ -1,6 +1,7 @@
 ﻿using Hubee.Validation.Sdk.Core.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -31,12 +32,17 @@ namespace Hubee.Validation.Sdk.Core.Helpers
             var ruleSplitted = rule?.Split(':');
 
             if (ruleSplitted is null || ruleSplitted.Length < 2)
-                throw new RuleInvalidFormatException(rule);
+                throw new RuleInvalidFormatException(rule);                
 
-            if (!ruleSplitted[1].All(char.IsDigit))
+            try
+            {
+                return double.Parse(ruleSplitted[1], CultureInfo.GetCultureInfo("en-US").NumberFormat);
+            }
+            catch
+            {
                 throw new RuleInvalidFormatException(rule);
-
-            return double.Parse(ruleSplitted[1]);
+            }
+           
         }
     }
 }

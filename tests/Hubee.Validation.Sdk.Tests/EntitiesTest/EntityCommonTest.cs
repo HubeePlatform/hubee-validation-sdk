@@ -16,9 +16,9 @@ namespace Hubee.Validation.Sdk.Tests.EntitiesTest
             return new
             {
                 Name = "required",
-                Stock = "required|min:1",
+                Stock = "required",
                 CreatedDate = "required",
-                Value = "required|max:1"
+                Value = "required"
             };
         }
     }

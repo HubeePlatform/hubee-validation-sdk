@@ -62,6 +62,12 @@ namespace Hubee.Validation.Sdk.Core.Factories
             {
                 case nameof(String):
                     return TextValidations.HasMax(property, propertyValue, rule);
+                case nameof(Double):
+                case nameof(Decimal):
+                case nameof(Int16):
+                case nameof(Int32):
+                case nameof(Int64):
+                    return NumericValidations.HasMax(property, propertyValue, rule);
                 default:
                     throw new PropertyTypeNotSupportedForRuleException(property.Name, property.PropertyType.Name, rule);
             }
@@ -73,6 +79,12 @@ namespace Hubee.Validation.Sdk.Core.Factories
             {
                 case nameof(String):
                     return TextValidations.HasMin(property, propertyValue, rule);
+                case nameof(Double):
+                case nameof(Decimal):
+                case nameof(Int16):
+                case nameof(Int32):
+                case nameof(Int64):
+                    return NumericValidations.HasMin(property, propertyValue, rule);
                 default:
                     throw new PropertyTypeNotSupportedForRuleException(property.Name, property.PropertyType.Name, rule);
             }
