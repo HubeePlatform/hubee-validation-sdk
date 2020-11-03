@@ -19,12 +19,12 @@ public class Cliente: IValidatableSchema
     public string Nome { get; set; }
     
     public object GetSchemaRules()
+    {
+        return new
         {
-            return new
-            {
-                Nome = "required|min:10|max:100"
-            };
-        }
+            Nome = "required|min:10|max:100"
+        };
+    }
 }
 ```
 
