@@ -17,7 +17,8 @@ using Hubee.Validation.Sdk.Core.Interfaces;
 public class Cliente: IValidatableSchema
 {
     public string Nome { get; set; }
-     public object GetSchemaRules()
+    
+    public object GetSchemaRules()
         {
             return new
             {
@@ -37,7 +38,9 @@ using Hubee.Validation.Sdk.Core.Extensions;
 public void JustCheckEntity()
 {
     var cliente = new Cliente();
+    
     var result = cliente.ValidadeSchema();
+    
     if (result.IsInvalid())
         throw new Exception(result.Stringify());
 }
