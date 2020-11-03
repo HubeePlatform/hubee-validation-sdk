@@ -1,8 +1,6 @@
 ﻿using Hubee.Validation.Sdk.Core.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Globalization;
+using System.Reflection;
 
 namespace Hubee.Validation.Sdk.Core.Helpers
 {
@@ -13,17 +11,34 @@ namespace Hubee.Validation.Sdk.Core.Helpers
             return value is null || value.ToString().Equals(string.Empty);
         }
 
-        public static int ExtractColonRuleIntegerValue(string rule)
+        public static string ExtractPropertyTypeName(PropertyInfo property)
+        {
+            var propertyTypeName = property.PropertyType.Name;
+
+            if (property.PropertyType.IsGenericType && property.PropertyType.GenericTypeArguments.Length > 0)
+            {
+                propertyTypeName = property.PropertyType.GenericTypeArguments[0].Name;
+            }
+
+            return propertyTypeName;
+        }
+
+        public static double ExtractColonRuleNumericValue(string rule)
         {
             var ruleSplitted = rule?.Split(':');
 
             if (ruleSplitted is null || ruleSplitted.Length < 2)
                 throw new RuleInvalidFormatException(rule);
 
-            if (!ruleSplitted[1].All(char.IsDigit))
+            try
+            {
+                return double.Parse(ruleSplitted[1], CultureInfo.GetCultureInfo("en-US").NumberFormat);
+            }
+            catch
+            {
                 throw new RuleInvalidFormatException(rule);
+            }
 
-            return int.Parse(ruleSplitted[1]);
         }
     }
 }

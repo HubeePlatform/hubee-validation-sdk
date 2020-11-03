@@ -1,12 +1,13 @@
 ﻿using Hubee.Validation.Sdk.Core.Exceptions;
+using Hubee.Validation.Sdk.Core.Helpers;
 using Hubee.Validation.Sdk.Core.Interfaces;
 using Hubee.Validation.Sdk.Core.Models;
+using Hubee.Validation.Sdk.Core.Models.Constants;
 using Hubee.Validation.Sdk.Core.Models.Validations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Hubee.Validation.Sdk.Core.Factories
@@ -30,26 +31,21 @@ namespace Hubee.Validation.Sdk.Core.Factories
 
             foreach (var rule in rules)
             {
-                if (rule.Equals("required"))
+                switch (rule)
                 {
-                    tasks.Add(new Task(() => result.Add(CommonValidation.IsRequired(property, propertyValue))));
-                    continue;
+                    case RuleName.REQUIRED:
+                        tasks.Add(new Task(() => result.Add(CommonValidations.IsRequired(property, propertyValue))));
+                        break;
+                    case string r when r.Contains(RuleName.MIN):
+                        tasks.Add(new Task(() => result.Add(CreateValidationForMin(property, propertyValue, rule))));
+                        break;
+                    case string r when r.Contains(RuleName.MAX):
+                        tasks.Add(new Task(() => result.Add(CreateValidationForMax(property, propertyValue, rule))));
+                        break;
+                    default:
+                        throw new RuleNotSupportedException(rule);
+
                 }
-
-                if (rule.Contains("min"))
-                {
-                    tasks.Add(new Task(() => result.Add(CreateValidationForMin(property, propertyValue, rule))));
-                    continue;
-                }
-
-                if (rule.Contains("max"))
-                {
-                    tasks.Add(new Task(() => result.Add(CreateValidationForMax(property, propertyValue, rule))));
-                    continue;
-                }
-
-                throw new RuleNotSupportedException(rule);
-
             }
 
             return tasks;
@@ -57,10 +53,16 @@ namespace Hubee.Validation.Sdk.Core.Factories
 
         private static Error CreateValidationForMax(PropertyInfo property, object propertyValue, string rule)
         {
-            switch (property.PropertyType.Name)
+            switch (ValidationHelper.ExtractPropertyTypeName(property))
             {
                 case nameof(String):
-                    return TextValidations.HasMaxLen(property, propertyValue, rule);
+                    return TextValidations.HasMax(property, propertyValue, rule);
+                case nameof(Double):
+                case nameof(Decimal):
+                case nameof(Int16):
+                case nameof(Int32):
+                case nameof(Int64):
+                    return NumericValidations.HasMax(property, propertyValue, rule);
                 default:
                     throw new PropertyTypeNotSupportedForRuleException(property.Name, property.PropertyType.Name, rule);
             }
@@ -68,11 +70,16 @@ namespace Hubee.Validation.Sdk.Core.Factories
 
         private static Error CreateValidationForMin(PropertyInfo property, object propertyValue, string rule)
         {
-            switch (property.PropertyType.Name)
+            switch (ValidationHelper.ExtractPropertyTypeName(property))
             {
                 case nameof(String):
-                    return TextValidations.HasMinLen(property, propertyValue, rule);
-
+                    return TextValidations.HasMin(property, propertyValue, rule);
+                case nameof(Double):
+                case nameof(Decimal):
+                case nameof(Int16):
+                case nameof(Int32):
+                case nameof(Int64):
+                    return NumericValidations.HasMin(property, propertyValue, rule);
                 default:
                     throw new PropertyTypeNotSupportedForRuleException(property.Name, property.PropertyType.Name, rule);
             }

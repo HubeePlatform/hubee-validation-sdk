@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Hubee.Validation.Sdk.Core.Models.Validations
 {
-    internal static class TextValidations
+    public class NumericValidations
     {
         public static Error HasMin(PropertyInfo property, object value, string rule, string errorCode = null)
         {
@@ -12,8 +12,8 @@ namespace Hubee.Validation.Sdk.Core.Models.Validations
 
             var expected = ValidationHelper.ExtractColonRuleNumericValue(rule);
 
-            if (value.ToString().Length < expected)
-                return Error.Make($"Property '{property.Name}' must have min length {expected} ", property.Name);
+            if (double.Parse(value.ToString()) < expected)
+                return Error.Make($"Property '{property.Name}' must have min value {expected} ", property.Name);
 
             return null;
         }
@@ -25,8 +25,8 @@ namespace Hubee.Validation.Sdk.Core.Models.Validations
 
             var expected = ValidationHelper.ExtractColonRuleNumericValue(rule);
 
-            if (value.ToString().Length > expected)
-                return Error.Make($"Property '{property.Name}' must have max length {expected}", property.Name);
+            if (double.Parse(value.ToString()) > expected)
+                return Error.Make($"Property '{property.Name}' must have max value {expected}", property.Name);
 
             return null;
         }
