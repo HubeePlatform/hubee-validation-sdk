@@ -1,5 +1,7 @@
 # Framework de validação da Hubee
 
+![N|Solid](https://media-exp1.licdn.com/dms/image/C4E0BAQHOp41isf2byw/company-logo_200_200/0?e=1611792000&v=beta&t=R627Tkw1cwQgb-LjNTJh_4auJWQsQieuU4wHoyLfIDA)
+
 Desenvolvemos esse framework para facilitar a validação dos nossos commands/dtos e quiçá nosso domínio!
 
 Nos baseamos na ideia de validação que é disponibilizada no laravel para criar uma ferramenta que valide dinamicamente nossos objetos.
