@@ -1,4 +1,5 @@
 ﻿using Hubee.Validation.Sdk.Core.Helpers;
+using System;
 using System.Reflection;
 
 namespace Hubee.Validation.Sdk.Core.Models.Validations
@@ -29,6 +30,18 @@ namespace Hubee.Validation.Sdk.Core.Models.Validations
                 return Error.Make($"Property '{property.Name}' must have max value {expected}", property.Name);
 
             return null;
+        }
+
+        public static Error IsGuid(PropertyInfo property, object value, string errorCode = null)
+        {
+            if (ValidationHelper.IsValueNullOrEmpty(value))
+                return null;
+
+            return Guid.TryParse(value.ToString(), out _)
+                ? null
+                : Error.Make($"Property '{property.Name}' is not a valid guid",
+                                  property.Name,
+                                  errorCode);
         }
     }
 }

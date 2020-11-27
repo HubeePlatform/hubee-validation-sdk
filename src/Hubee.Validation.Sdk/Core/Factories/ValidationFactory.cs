@@ -42,6 +42,12 @@ namespace Hubee.Validation.Sdk.Core.Factories
                     case string r when r.Contains(RuleName.MAX):
                         tasks.Add(new Task(() => result.Add(CreateValidationForMax(property, propertyValue, rule))));
                         break;
+                    case RuleName.GUID:
+                        tasks.Add(new Task(() => result.Add(NumericValidations.IsGuid(property, propertyValue))));
+                        break;
+                    case RuleName.EMAIL:
+                        tasks.Add(new Task(() => result.Add(EmailValidations.IsEmail(property, propertyValue))));
+                        break;
                     default:
                         throw new RuleNotSupportedException(rule);
 
