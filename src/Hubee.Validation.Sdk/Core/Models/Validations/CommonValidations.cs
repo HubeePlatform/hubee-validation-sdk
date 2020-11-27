@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using Hubee.Validation.Sdk.Core.Helpers;
+using System.Reflection;
 
 namespace Hubee.Validation.Sdk.Core.Models.Validations
 {
@@ -6,7 +7,7 @@ namespace Hubee.Validation.Sdk.Core.Models.Validations
     {
         public static Error IsRequired(PropertyInfo property, object value, string errorCode = null)
         {
-            if (value is null || value.ToString().Equals(string.Empty))
+            if (ValidationHelper.IsValueNullOrEmpty(value))
             {
                 return Error.Make($"Property '{property.Name}' is required",
                                   property.Name,
