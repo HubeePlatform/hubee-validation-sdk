@@ -13,21 +13,21 @@ namespace Hubee.Validation.Sdk.Tests.Core
         [InlineData("Cleiton Waldemar Ribeiro de Souza")]
         public void TestValidMaxLen(string name)
         {
-            var entity = new EntityTextTest() { Name = name, Alias = "" };
+            var entity = new EntityTextTest(name);
 
-            var result = entity.ValidadeSchema();
+            entity.ValidadeSchema();
 
-            Assert.True(result.IsValid());
+            Assert.True(entity.ValidationResult.IsValid());
         }
 
         [Fact]
         public void TestInvalidMaxLen()
         {
-            var entity = new EntityTextTest() { Name = "Pedro de Alcântara Francisco Antônio João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon", Alias = "" };
+            var entity = new EntityTextTest(
+                "Pedro de Alcântara Francisco Antônio João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon"
+                ).ValidadeSchema();
 
-            var result = entity.ValidadeSchema();
-
-            Assert.True(result.IsInvalid());
+            Assert.True(entity.ValidationResult.IsInvalid());
         }
 
         [Theory]
@@ -36,11 +36,9 @@ namespace Hubee.Validation.Sdk.Tests.Core
         [InlineData("Bulgareli")]
         public void TestInvalidMinLen(string name)
         {
-            var entity = new EntityTextTest() { Name = name, Alias = "" };
+            var entity = new EntityTextTest(name).ValidadeSchema();
 
-            var result = entity.ValidadeSchema();
-
-            Assert.True(result.IsInvalid());
+            Assert.True(entity.ValidationResult.IsInvalid());
         }
     }
 }

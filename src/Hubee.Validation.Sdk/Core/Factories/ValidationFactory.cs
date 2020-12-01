@@ -42,8 +42,8 @@ namespace Hubee.Validation.Sdk.Core.Factories
                     case string r when r.Contains(RuleName.MAX):
                         tasks.Add(new Task(() => result.Add(CreateValidationForMax(property, propertyValue, rule))));
                         break;
-                    case RuleName.GUID:
-                        tasks.Add(new Task(() => result.Add(NumericValidations.IsGuid(property, propertyValue))));
+                    case string r when r.Contains(RuleName.GUID):
+                        tasks.Add(new Task(() => result.Add(CreateValidationForGuid(property, propertyValue, rule))));
                         break;
                     case RuleName.EMAIL:
                         tasks.Add(new Task(() => result.Add(EmailValidations.IsEmail(property, propertyValue))));
@@ -89,6 +89,18 @@ namespace Hubee.Validation.Sdk.Core.Factories
                 default:
                     throw new PropertyTypeNotSupportedForRuleException(property.Name, property.PropertyType.Name, rule);
             }
+        }
+
+        private static Error CreateValidationForGuid(PropertyInfo property, object propertyValue, string rule)
+        {
+            var ruleName = ValidationHelper.ExtractRuleSpecificationValue(rule);
+
+            return ruleName switch
+            {
+                RuleName.GUID => GuidValidations.IsGuid(property, propertyValue, rule),
+                RuleSpecificationName.ALLOW_EMPTY => GuidValidations.IsGuidAllowEmpty(property, propertyValue, rule),
+                _ => throw new RuleNotSupportedException(rule),
+            };
         }
 
         private static void ValidateRulesAndResultObject(string[] rules, ValidationResult result)

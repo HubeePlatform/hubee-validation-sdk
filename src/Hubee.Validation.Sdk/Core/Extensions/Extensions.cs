@@ -10,18 +10,18 @@ namespace Hubee.Validation.Sdk.Core.Extensions
     public static class Extensions
     {
         private const int TASK_EXECUTION_TIMEOUT = 20000;
-        public static ValidationResult ValidadeSchema(this IValidatableSchema validatable)
+
+        public static IValidatableSchema ValidadeSchema(this IValidatableSchema validatable)
         {
-            var validationResult = new ValidationResult();
+            validatable.ValidationResult = new ValidationResult();
 
             var properties = validatable.GetType().GetProperties();
 
             if (!properties.Any() || (validatable.GetSchemaRules() is null))
-                return validationResult;
+                return validatable;
 
             var rules = validatable.GetSchemaRules();
             var describedValidations = rules.GetType().GetProperties();
-
 
             var tasks = new List<Task>();
 
@@ -31,13 +31,13 @@ namespace Hubee.Validation.Sdk.Core.Extensions
                                                                   properties,
                                                                   validation.Name,
                                                                   validation.GetValue(rules)?.ToString().Split('|'),
-                                                                  validationResult));
+                                                                  validatable.ValidationResult));
             }
 
             tasks.ForEach(t => t.Start());
 
             Task.WaitAll(tasks.ToArray(), TASK_EXECUTION_TIMEOUT);
-            return validationResult;
+            return validatable;
         }
     }
 }
