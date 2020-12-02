@@ -45,5 +45,14 @@ namespace Hubee.Validation.Sdk.Tests.Core
 
             Assert.Throws<RuleNotSupportedException>(() => { entity.ValidadeSchema(); });
         }
+
+        [Fact]
+        public void TestAutoValidation()
+        {
+            var entity = new EntityCommonTest("", null, null, null);
+
+            Assert.True(entity.ValidationResult.IsInvalid());
+            Assert.Equal(4, entity.ValidationResult.GetErrors().Count);
+        }
     }
 }
