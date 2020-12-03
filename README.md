@@ -38,7 +38,7 @@ using Hubee.Validation.Sdk.Core.Extensions;
 
 public void JustCheckEntity()
 {
-    var cliente = new Cliente().ValidadeSchema();
+    var cliente = new Cliente().ValidateSchema();
 
     if (cliente.ValidationResult.IsInvalid())
         throw new Exception(result.Stringify());
