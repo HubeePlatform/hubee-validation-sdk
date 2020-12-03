@@ -10,17 +10,17 @@ Utilizamos principalmente o [notification pattern](https://martinfowler.com/arti
 
 ## Utilização
 
-Para utilizar é muito simples, utilize a interface `IValidatableSchema` criando o método obrigatório `GetSchemaRules()` e nele você deve retornar um objeto anônimo com as validações de cada propriedade separadas por **pipe**, conforme o exemplo:
+Para utilizar é muito simples, utilize a classe base `ValidatableSchema` sobrescrevendo o método obrigatório `GetSchemaRules()` e nele você deve retornar um objeto anônimo com as validações de cada propriedade separadas por **pipe**, conforme o exemplo:
 
 ```c#
-using Hubee.Validation.Sdk.Core.Interfaces;
+using Hubee.Validation.Sdk.Core.Models;
 //(...)
 
-public class Cliente: IValidatableSchema
+public class Cliente: ValidatableSchema
 {
     public string Nome { get; set; }
-    
-    public object GetSchemaRules()
+
+    public override object GetSchemaRules()
     {
         return new
         {
@@ -30,7 +30,6 @@ public class Cliente: IValidatableSchema
 }
 ```
 
-
 Sua classe já está configurada para usar a o método `ValidateSchema()` no seu objeto:
 
 ```c#
@@ -39,11 +38,9 @@ using Hubee.Validation.Sdk.Core.Extensions;
 
 public void JustCheckEntity()
 {
-    var cliente = new Cliente();
-    
-    var result = cliente.ValidadeSchema();
-    
-    if (result.IsInvalid())
+    var cliente = new Cliente().ValidadeSchema();
+
+    if (cliente.ValidationResult.IsInvalid())
         throw new Exception(result.Stringify());
 }
 ```
@@ -56,7 +53,6 @@ O `ValidateSchema()` retorna um objeto de resultado de validação que possui al
 + `Stringify()` que converte todos os erros para texto amigável;
 + `StringifyAsList()` que converte todos os erros para uma lista de mensagens amigáveis.
 
-
 ## Rules disponíveis
 
 | Rule | Tipo | Exemplo | Observação |
@@ -64,3 +60,5 @@ O `ValidateSchema()` retorna um objeto de resultado de validação que possui al
 | required | todos | "required"|
 | min | string, numéricos (int, decimal, double etc) | "required\|min:1" | *min em string validará **length** e em numéricos o **valor***|
 | max | string, numéricos (int, decimal, double etc) | "required\|min:1\|max:25" | *max em string validará **length** e em numéricos o **valor***|
+| guid | guid, string | "guid", "guid:allow_empty" | por padrão a rule **guid** validará o valor empty (00000000-0000-0000-0000-000000000000) e em casos que não deseja validar o valor empty utilize **guid:allow_empty**
+| email | string | "email"|

@@ -1,12 +1,17 @@
-﻿using Hubee.Validation.Sdk.Core.Interfaces;
+﻿using Hubee.Validation.Sdk.Core.Models;
 
 namespace Hubee.Validation.Sdk.Tests.EntitiesTest
 {
-    public class EntityEmailTest : IValidatableSchema
+    public class EntityEmailTest : ValidatableSchema
     {
+        public EntityEmailTest(string email)
+        {
+            Email = email;
+        }
+
         public string Email { get; set; }
 
-        public object GetSchemaRules()
+        public override object GetSchemaRules()
         {
             return new
             {

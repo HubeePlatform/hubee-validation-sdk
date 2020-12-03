@@ -1,5 +1,4 @@
 ﻿using Hubee.Validation.Sdk.Core.Helpers;
-using System;
 using System.Reflection;
 
 namespace Hubee.Validation.Sdk.Core.Models.Validations
@@ -14,7 +13,7 @@ namespace Hubee.Validation.Sdk.Core.Models.Validations
             var expected = ValidationHelper.ExtractColonRuleNumericValue(rule);
 
             if (double.Parse(value.ToString()) < expected)
-                return Error.Make($"Property '{property.Name}' must have min value {expected} ", property.Name);
+                return Error.Make($"Property '{property.Name}' must have min value {expected} ", property.Name, errorCode);
 
             return null;
         }
@@ -27,21 +26,9 @@ namespace Hubee.Validation.Sdk.Core.Models.Validations
             var expected = ValidationHelper.ExtractColonRuleNumericValue(rule);
 
             if (double.Parse(value.ToString()) > expected)
-                return Error.Make($"Property '{property.Name}' must have max value {expected}", property.Name);
+                return Error.Make($"Property '{property.Name}' must have max value {expected}", property.Name, errorCode);
 
             return null;
-        }
-
-        public static Error IsGuid(PropertyInfo property, object value, string errorCode = null)
-        {
-            if (ValidationHelper.IsValueNullOrEmpty(value))
-                return null;
-
-            return Guid.TryParse(value.ToString(), out _)
-                ? null
-                : Error.Make($"Property '{property.Name}' is not a valid guid",
-                                  property.Name,
-                                  errorCode);
         }
     }
 }

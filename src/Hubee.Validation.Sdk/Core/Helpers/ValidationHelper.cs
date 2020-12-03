@@ -1,5 +1,7 @@
 ﻿using Hubee.Validation.Sdk.Core.Exceptions;
+using Hubee.Validation.Sdk.Core.Models.Constants;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 
 namespace Hubee.Validation.Sdk.Core.Helpers
@@ -8,7 +10,9 @@ namespace Hubee.Validation.Sdk.Core.Helpers
     {
         public static bool IsValueNullOrEmpty(object value)
         {
-            return value is null || value.ToString().Equals(string.Empty);
+            return
+                value is null ||
+                value.ToString().Equals(string.Empty);
         }
 
         public static string ExtractPropertyTypeName(PropertyInfo property)
@@ -39,6 +43,24 @@ namespace Hubee.Validation.Sdk.Core.Helpers
                 throw new RuleInvalidFormatException(rule);
             }
 
+        }
+
+        public static string ExtractRuleSpecificationValue(string rule)
+        {
+            var ruleSplitted = rule?.Split(':');
+
+            if (ruleSplitted != null && ruleSplitted.Length > 1)
+            {
+                var specification = ruleSplitted[1];
+                var specifications = typeof(RuleSpecificationName).GetAllConstantValues<string>();
+
+                if (!specifications.Any(s => s.Equals(specification)))
+                    throw new RuleInvalidFormatException(rule);
+
+                return specification;
+            }
+
+            return rule;
         }
     }
 }
