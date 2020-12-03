@@ -1,6 +1,7 @@
 ﻿using Hubee.Validation.Sdk.Core.Extensions;
 using Hubee.Validation.Sdk.Core.Helpers;
 using Hubee.Validation.Sdk.Core.Interfaces;
+using Newtonsoft.Json;
 using System.Linq;
 
 namespace Hubee.Validation.Sdk.Core.Models
@@ -10,6 +11,8 @@ namespace Hubee.Validation.Sdk.Core.Models
         protected ValidatableSchema() => this.ValidationHashCode = string.Empty;
 
         private ValidationResult validationResult;
+
+        [JsonIgnore]
         public ValidationResult ValidationResult
         {
             get

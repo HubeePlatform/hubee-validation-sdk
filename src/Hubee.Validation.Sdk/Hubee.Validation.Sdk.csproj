@@ -3,12 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Hubee.Validation.Sdk</PackageId>
-    <Version>0.0.2</Version>
+    <Version>0.0.2.2</Version>
     <Authors>João Antonio Bulgareli</Authors>
     <Company>Hubee</Company>
     <PackageDescription>Framework de validação da Hubee</PackageDescription>
     <RepositoryUrl>https://github.com/HubeePlatform/hubee-validation-sdk</RepositoryUrl>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
 
 </Project>
