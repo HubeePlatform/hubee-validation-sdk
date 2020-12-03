@@ -15,21 +15,24 @@ namespace Hubee.Validation.Sdk.Tests.Core
         [InlineData("cleiton&@tech.br")]
         public void TestValidEmail(string email)
         {
-            var entity = new EntityEmailTest(email).ValidadeSchema();
+            var entity = new EntityEmailTest(email).ValidateSchema();
 
             Assert.True(entity.ValidationResult.IsValid());
         }
 
         [Theory]
-        [InlineData("luiz.gmail.com")]
-        [InlineData("joao.com.br")]
-        [InlineData("antonio@gmail")]
-        [InlineData("beto#gmail.com")]
-        [InlineData("luiz¨assis@gmail.com")]
-        [InlineData("joao@hubee@gmail.com")]
+        //[InlineData("luiz.gmail.com")]
+        //[InlineData("joao.com.br")]
+        //[InlineData("antonio@gmail")]
+        //[InlineData("beto#gmail.com")]
+        //[InlineData("luiz¨assis@gmail.com")]
+        [InlineData("luiz.assis@gmailcom")]
         public void TestInvalidEmail(string email)
         {
-            var entity = new EntityEmailTest(email).ValidadeSchema();
+            var entity = new EntityEmailTest(email);
+
+            //entity.ValidadeSchema();
+            //entity.ValidadeSchema();
 
             Assert.True(entity.ValidationResult.IsInvalid());
         }

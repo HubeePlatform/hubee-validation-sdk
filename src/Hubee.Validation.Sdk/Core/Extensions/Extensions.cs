@@ -10,18 +10,28 @@ namespace Hubee.Validation.Sdk.Core.Extensions
     public static class Extensions
     {
         private const int TASK_EXECUTION_TIMEOUT = 20000;
+        private readonly static object _lock = new object();
 
-        public static IValidatableSchema ValidadeSchema(this IValidatableSchema validatable)
+        public static IValidatableSchema ValidateSchema(this IValidatableSchema validatable)
         {
-            validatable.ValidationResult = new ValidationResult();
+            lock (_lock)
+            {
+                return Validate(validatable);
+            }
+        }
 
+        private static IValidatableSchema Validate(IValidatableSchema validatable)
+        {
             var properties = validatable.GetType().GetProperties();
 
-            if (!properties.Any() || (validatable.GetSchemaRules() is null))
+            if (!properties.Any() || (validatable.GetSchemaRules() is null) || !validatable.ChangedHashCode())
                 return validatable;
 
             var rules = validatable.GetSchemaRules();
             var describedValidations = rules.GetType().GetProperties();
+
+            var validationResult = new ValidationResult();
+
 
             var tasks = new List<Task>();
 
@@ -31,12 +41,17 @@ namespace Hubee.Validation.Sdk.Core.Extensions
                                                                   properties,
                                                                   validation.Name,
                                                                   validation.GetValue(rules)?.ToString().Split('|'),
-                                                                  validatable.ValidationResult));
+                                                                  validationResult));
             }
 
             tasks.ForEach(t => t.Start());
 
             Task.WaitAll(tasks.ToArray(), TASK_EXECUTION_TIMEOUT);
+
+
+            validatable.ValidationResult = validationResult;
+            validatable.SetHashCode();
+
             return validatable;
         }
     }

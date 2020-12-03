@@ -11,7 +11,7 @@ namespace Hubee.Validation.Sdk.Tests.Core
         [InlineData("6ac3e2cc-17a0-4a0b-9d8d-12d0ed64d95f")]
         public void TestValidGuid(string id)
         {
-            var entity = new EntityGuidTest(id).ValidadeSchema();
+            var entity = new EntityGuidTest(id).ValidateSchema();
 
             Assert.True(entity.ValidationResult.IsValid());
         }
@@ -22,7 +22,7 @@ namespace Hubee.Validation.Sdk.Tests.Core
         [InlineData("75a3abb4")]
         public void TestInvalidGuid(string id)
         {
-            var entity = new EntityGuidTest(id).ValidadeSchema();
+            var entity = new EntityGuidTest(id).ValidateSchema();
 
             Assert.True(entity.ValidationResult.IsInvalid());
         }
@@ -32,7 +32,7 @@ namespace Hubee.Validation.Sdk.Tests.Core
         [InlineData("6ac3e2cc-17a0-4a0b-9d8d-12d0ed64d95f")]
         public void TestGuidAllowEmpty(string id)
         {
-            var entity = new EntityGuidAllowEmptyTest(id).ValidadeSchema();
+            var entity = new EntityGuidAllowEmptyTest(id).ValidateSchema();
 
             Assert.True(entity.ValidationResult.IsValid());
         }

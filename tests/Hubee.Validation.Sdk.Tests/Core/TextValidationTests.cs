@@ -15,7 +15,7 @@ namespace Hubee.Validation.Sdk.Tests.Core
         {
             var entity = new EntityTextTest(name);
 
-            entity.ValidadeSchema();
+            entity.ValidateSchema();
 
             Assert.True(entity.ValidationResult.IsValid());
         }
@@ -25,7 +25,7 @@ namespace Hubee.Validation.Sdk.Tests.Core
         {
             var entity = new EntityTextTest(
                 "Pedro de Alcântara Francisco Antônio João Carlos Xavier de Paula Miguel Rafael Joaquim José Gonzaga Pascoal Cipriano Serafim de Bragança e Bourbon"
-                ).ValidadeSchema();
+                ).ValidateSchema();
 
             Assert.True(entity.ValidationResult.IsInvalid());
         }
@@ -36,7 +36,7 @@ namespace Hubee.Validation.Sdk.Tests.Core
         [InlineData("Bulgareli")]
         public void TestInvalidMinLen(string name)
         {
-            var entity = new EntityTextTest(name).ValidadeSchema();
+            var entity = new EntityTextTest(name).ValidateSchema();
 
             Assert.True(entity.ValidationResult.IsInvalid());
         }

@@ -25,7 +25,7 @@ namespace Hubee.Validation.Sdk.Tests.Core
         [MemberData(nameof(ValidNumericData))]
         public void TestValidNumericObject(int number, decimal value, double price)
         {
-            var entity = new EntityNumericTest(number, value, price).ValidadeSchema();
+            var entity = new EntityNumericTest(number, value, price).ValidateSchema();
 
             Assert.True(entity.ValidationResult.IsValid());
         }
@@ -34,7 +34,7 @@ namespace Hubee.Validation.Sdk.Tests.Core
         [MemberData(nameof(InvalidNumericData))]
         public void TestInvalidNumericObject(int number, decimal value, double price)
         {
-            var entity = new EntityNumericTest(number, value, price).ValidadeSchema();
+            var entity = new EntityNumericTest(number, value, price).ValidateSchema();
 
             Assert.True(entity.ValidationResult.IsInvalid());
         }
