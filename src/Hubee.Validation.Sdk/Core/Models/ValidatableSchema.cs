@@ -1,7 +1,9 @@
 ﻿using Hubee.Validation.Sdk.Core.Extensions;
-using Hubee.Validation.Sdk.Core.Helpers;
 using Hubee.Validation.Sdk.Core.Interfaces;
+using System;
 using System.Linq;
+using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Hubee.Validation.Sdk.Core.Models
 {
@@ -10,6 +12,8 @@ namespace Hubee.Validation.Sdk.Core.Models
         protected ValidatableSchema() => this.ValidationHashCode = string.Empty;
 
         private ValidationResult validationResult;
+
+        [JsonIgnore]
         public ValidationResult ValidationResult
         {
             get
@@ -56,7 +60,7 @@ namespace Hubee.Validation.Sdk.Core.Models
                 var propertiesValues = properties.Where(x => rulesName.Contains(x.Name)).OrderBy(x => x.Name).Select(x => x.GetValue(entity)).ToList();
 
                 var key = $"{entityNamespace}:{string.Join(",", propertiesValues.ToArray())}";
-                return CryptographyHelper.CreateMD5Hash(key);
+                return Convert.ToBase64String(Encoding.UTF8.GetBytes(key));
             }
         }
 

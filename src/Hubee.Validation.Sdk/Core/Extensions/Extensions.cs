@@ -48,7 +48,6 @@ namespace Hubee.Validation.Sdk.Core.Extensions
 
             Task.WaitAll(tasks.ToArray(), TASK_EXECUTION_TIMEOUT);
 
-
             validatable.ValidationResult = validationResult;
             validatable.SetHashCode();
 
