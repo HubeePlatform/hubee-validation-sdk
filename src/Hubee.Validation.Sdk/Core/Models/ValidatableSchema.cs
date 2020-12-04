@@ -3,6 +3,7 @@ using Hubee.Validation.Sdk.Core.Helpers;
 using Hubee.Validation.Sdk.Core.Interfaces;
 using Newtonsoft.Json;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace Hubee.Validation.Sdk.Core.Models
 {

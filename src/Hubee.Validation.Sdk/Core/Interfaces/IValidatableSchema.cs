@@ -1,5 +1,5 @@
-﻿using Hubee.Validation.Sdk.Core.Models;
-using Newtonsoft.Json;
+using Hubee.Validation.Sdk.Core.Models;
+using System.Text.Json.Serialization;
 
 namespace Hubee.Validation.Sdk.Core.Interfaces
 {
