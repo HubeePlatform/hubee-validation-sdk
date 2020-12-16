@@ -1,5 +1,6 @@
 ﻿using Hubee.Validation.Sdk.Core.Exceptions;
 using Hubee.Validation.Sdk.Core.Models.Constants;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -12,7 +13,8 @@ namespace Hubee.Validation.Sdk.Core.Helpers
         {
             return
                 value is null ||
-                value.ToString().Equals(string.Empty);
+                value.ToString().Equals(string.Empty) ||
+                (TypeofHelper.IsList(value) && ReflectionHelper.GetCount(value) <= 0);
         }
 
         public static string ExtractPropertyTypeName(PropertyInfo property)
