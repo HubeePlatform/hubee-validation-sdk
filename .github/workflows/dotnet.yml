@@ -1,0 +1,26 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Pack
+      run: dotnet pack --configuration Release
+    - name: Push to GitHub Feed
+      env:
+        ORG_GITHUB_PACKAGES_PASSWORD:  ${{ secrets.ORG_GITHUB_PACKAGES_PASSWORD }}
+      shell: bash
+      run: |
+        for f in /home/runner/work/hubee-validation-sdk/hubee-validation-sdk/src/Hubee.Validation.Sdk/bin/Release/*.nupkg
+        do
+          dotnet nuget push "$f" --source "https://nuget.pkg.github.com/HubeePlatform/index.json" -k $ORG_GITHUB_PACKAGES_PASSWORD --skip-duplicate
+        done
