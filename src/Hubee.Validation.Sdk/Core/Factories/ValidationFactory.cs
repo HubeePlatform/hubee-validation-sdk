@@ -48,6 +48,12 @@ namespace Hubee.Validation.Sdk.Core.Factories
                     case RuleName.EMAIL:
                         tasks.Add(new Task(() => result.Add(EmailValidations.IsEmail(property, propertyValue))));
                         break;
+                    case RuleName.CNPJ:
+                        tasks.Add(new Task(() => result.Add(CnpjValidations.IsCnpj(property, propertyValue))));
+                        break;
+                    case RuleName.CPF:
+                        tasks.Add(new Task(() => result.Add(CpfValidations.IsCpf(property, propertyValue))));
+                        break;
                     default:
                         throw new RuleNotSupportedException(rule);
 

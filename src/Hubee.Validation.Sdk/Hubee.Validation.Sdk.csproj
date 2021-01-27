@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Hubee.Validation.Sdk</PackageId>
-    <Version>0.0.2.5</Version>
+    <Version>0.0.2.6</Version>
     <Authors>João Antonio Bulgareli</Authors>
     <Company>Hubee</Company>
     <PackageDescription>Framework de validação da Hubee</PackageDescription>
