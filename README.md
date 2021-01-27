@@ -64,4 +64,3 @@ O `ValidateSchema()` retorna um objeto de resultado de validação que possui al
 | email | string | "email"|
 | cpf | string | "cpf"|
 | cnpj | string | "cnpj"|
-| list | List<T> | "list", "list:allow_empty"|
