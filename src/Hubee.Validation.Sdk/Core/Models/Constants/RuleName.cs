@@ -9,6 +9,5 @@
         public const string EMAIL = "email";
         public const string CPF = "cpf";
         public const string CNPJ = "cnpj";
-        public const string LIST = "list";
     }
 }
