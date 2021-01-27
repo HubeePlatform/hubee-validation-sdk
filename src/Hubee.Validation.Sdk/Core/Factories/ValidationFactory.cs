@@ -48,6 +48,15 @@ namespace Hubee.Validation.Sdk.Core.Factories
                     case RuleName.EMAIL:
                         tasks.Add(new Task(() => result.Add(EmailValidations.IsEmail(property, propertyValue))));
                         break;
+                    case RuleName.CNPJ:
+                        tasks.Add(new Task(() => result.Add(CnpjValidations.IsCnpj(property, propertyValue))));
+                        break;
+                    case RuleName.CPF:
+                        tasks.Add(new Task(() => result.Add(CpfValidations.IsCpf(property, propertyValue))));
+                        break;
+                    case string r when r.Contains(RuleName.LIST):
+                        tasks.Add(new Task(() => result.Add(CreateValidationForList(property, propertyValue, rule))));
+                        break;
                     default:
                         throw new RuleNotSupportedException(rule);
 
@@ -55,6 +64,18 @@ namespace Hubee.Validation.Sdk.Core.Factories
             }
 
             return tasks;
+        }
+
+        private static Error CreateValidationForList(PropertyInfo property, object propertyValue, string rule)
+        {
+            var ruleName = ValidationHelper.ExtractRuleSpecificationValue(rule);
+
+            return ruleName switch
+            {
+                RuleName.LIST => ListValidations.IsList(property, propertyValue, rule),
+                RuleSpecificationName.ALLOW_EMPTY => ListValidations.IsListAllowEmpty(property, propertyValue, rule),
+                _ => throw new RuleNotSupportedException(rule),
+            };
         }
 
         private static Error CreateValidationForMax(PropertyInfo property, object propertyValue, string rule)

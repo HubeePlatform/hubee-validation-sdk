@@ -62,3 +62,6 @@ O `ValidateSchema()` retorna um objeto de resultado de validação que possui al
 | max | string, numéricos (int, decimal, double etc) | "required\|min:1\|max:25" | *max em string validará **length** e em numéricos o **valor***|
 | guid | guid, string | "guid", "guid:allow_empty" | por padrão a rule **guid** validará o valor empty (00000000-0000-0000-0000-000000000000) e em casos que não deseja validar o valor empty utilize **guid:allow_empty**
 | email | string | "email"|
+| cpf | string | "cpf"|
+| cnpj | string | "cnpj"|
+| list | List<T> | "list", "list:allow_empty"|
