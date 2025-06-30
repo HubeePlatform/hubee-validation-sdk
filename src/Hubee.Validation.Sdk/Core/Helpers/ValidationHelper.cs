@@ -38,7 +38,7 @@ namespace Hubee.Validation.Sdk.Core.Helpers
 
             try
             {
-                return double.Parse(ruleSplitted[1], CultureInfo.GetCultureInfo("en-US").NumberFormat);
+                return double.Parse(ruleSplitted[1], CultureInfo.InvariantCulture);
             }
             catch
             {
