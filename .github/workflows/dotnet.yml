@@ -12,7 +12,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.301
+        dotnet-version: 8.0.100
     - name: Pack
       run: dotnet pack --configuration Release
     - name: Push to GitHub Feed
